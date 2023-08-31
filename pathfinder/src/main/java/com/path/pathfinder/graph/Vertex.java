@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Vertex {
 
-    int id;
+    private int id;
 
     public Vertex(int id) {
         this.id = id;
@@ -17,13 +17,18 @@ public class Vertex {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vertex vertex = (Vertex) o;
+        if (!(o instanceof Vertex vertex)) return false;
         return getId() == vertex.getId();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Vertex{" + id +
+                '}';
     }
 }

@@ -16,6 +16,7 @@ class GraphTest {
     @DisplayName("Adding Vertex to Map")
     void addVertex_should_not_be_empty() {
         testGraph.addVertex(1);
-        assertTrue(!testGraph.getAdjacencyMap().isEmpty());
+        assertFalse(testGraph.getAdjacencyMap().isEmpty());
     }
+
 }

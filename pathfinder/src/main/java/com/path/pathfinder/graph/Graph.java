@@ -20,4 +20,22 @@ public class Graph {
         adjacencyMap.put(new Vertex(id) , new ArrayList<>());
     }
 
+    public void addEdge(int id1 , int id2){
+        adjacencyMap.get(new Vertex(id1)).add(new Vertex(id2));
+        adjacencyMap.get(new Vertex(id2)).add(new Vertex(id1));
+
+    }
+
+    public void deleteEdge(int id1 , int id2){
+        adjacencyMap.get(new Vertex(id1)).remove(new Vertex(id2));
+        adjacencyMap.get(new Vertex(id2)).remove(new Vertex(id1));
+    }
+
+    public void showConnection(){
+        for (Map.Entry<Vertex , List<Vertex>> v : adjacencyMap.entrySet()) {
+            System.out.printf("%-15s  Edges : %10s\n" , v.getKey() , v.getValue());
+        }
+    }
+
+
 }
