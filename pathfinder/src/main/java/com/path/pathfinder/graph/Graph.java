@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Graph {
 
-    private Map<Vertex, List<Vertex>> adjacencyMap;
+    private final Map<Vertex, List<Vertex>> adjacencyMap;
 
     public Graph() {
         adjacencyMap = new HashMap<>();
