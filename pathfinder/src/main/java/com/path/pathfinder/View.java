@@ -1,6 +1,7 @@
 package com.path.pathfinder;
 
 import com.path.pathfinder.graph.Graph;
+import com.path.pathfinder.graph.GraphBuilder;
 import com.path.pathfinder.graph.Vertex;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,13 +14,10 @@ public class View extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Graph g = new Graph();
-        g.addVertex(1);
-        g.addVertex(2);
-        g.addVertex(3);
-        g.addVertex(4);
+        GraphBuilder graphBuilder = new GraphBuilder(5 , 5);
+        graphBuilder.buildGraph();
+        graphBuilder.getGraph().showConnection();
 
-        g.showConnection();
 
         Group group = new Group();
 
