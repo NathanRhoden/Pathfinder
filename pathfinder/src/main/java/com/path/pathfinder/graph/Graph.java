@@ -1,9 +1,6 @@
 package com.path.pathfinder.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Graph {
 
@@ -31,11 +28,22 @@ public class Graph {
         adjacencyMap.get(new Vertex(id2)).remove(new Vertex(id1));
     }
 
-    public void showConnection(){
+    public void showConnections(){
         for (Map.Entry<Vertex , List<Vertex>> v : adjacencyMap.entrySet()) {
             System.out.printf("%-15s  Edges : %10s\n" , v.getKey() , v.getValue());
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Graph graph = (Graph) o;
+        return Objects.equals(getAdjacencyMap(), graph.getAdjacencyMap());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAdjacencyMap());
+    }
 }
