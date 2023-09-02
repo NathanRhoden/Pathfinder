@@ -1,11 +1,10 @@
 package com.path.pathfinder;
 
-import com.path.pathfinder.graph.Graph;
 import com.path.pathfinder.graph.GraphBuilder;
-import com.path.pathfinder.graph.Vertex;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,19 +13,22 @@ public class View extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        GraphBuilder graphBuilder = new GraphBuilder(2, 2);
+        DimensionData dimensionData = new DimensionData(800, 800, 10, 10);
+
+        GraphBuilder graphBuilder = new GraphBuilder(dimensionData);
         graphBuilder.buildGraph();
         graphBuilder.getGraph().showConnections();
 
-
-
-
+        Render r = new Render(graphBuilder, dimensionData);
         Group group = new Group();
+        group.getChildren().add(r.drawGrid());
+
+
 
         Scene scene = new Scene(group, 800, 800);
         stage.setTitle("PathFinder");
         stage.setScene(scene);
-        //stage.show();
+        stage.show();
     }
 
     public static void main(String[] args) {

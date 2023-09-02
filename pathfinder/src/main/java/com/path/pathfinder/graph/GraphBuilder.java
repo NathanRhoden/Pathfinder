@@ -1,18 +1,20 @@
 package com.path.pathfinder.graph;
 
+import com.path.pathfinder.DimensionData;
+
 import java.util.Objects;
 
-public class GraphBuilder {
+public class GraphBuilder  {
 
     private Graph graph;
     private int row;
     private int col;
 
-    public GraphBuilder(int row, int col) {
+    public GraphBuilder(DimensionData dimensionData) {
 
         graph = new Graph();
-        this.row = row;
-        this.col = col;
+        row = dimensionData.getRow();
+        col = dimensionData.getCol();
     }
 
     public void buildGraph() {
@@ -51,6 +53,14 @@ public class GraphBuilder {
         for (int i = 0; i < (row * col) - row; i++) {
             graph.addEdge(i, i + row);
         }
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
     }
 
     public Graph getGraph() {
