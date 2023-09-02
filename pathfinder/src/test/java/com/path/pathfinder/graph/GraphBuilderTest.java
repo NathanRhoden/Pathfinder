@@ -19,8 +19,10 @@ class GraphBuilderTest {
         mockGraph.getGraph().addVertex(2);
         mockGraph.getGraph().addVertex(3);
 
+
         mockGraph.getGraph().addEdge(0, 1);
         mockGraph.getGraph().addEdge(2, 3);
+
 
     }
 
@@ -29,10 +31,10 @@ class GraphBuilderTest {
     void generateHorizontalEdges() {
 
         GraphBuilder g = new GraphBuilder(2, 2);
-        g.buildGraph();
+        g.generateVertex();
         g.generateHorizontalEdges();
 
-        assertSame(mockGraph, g);
+        assertEquals(mockGraph, g);
 
     }
 }

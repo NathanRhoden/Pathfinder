@@ -14,9 +14,12 @@ public class View extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        GraphBuilder graphBuilder = new GraphBuilder(4, 4);
+        GraphBuilder graphBuilder = new GraphBuilder(2, 2);
         graphBuilder.buildGraph();
         graphBuilder.getGraph().showConnections();
+
+
+
 
         Group group = new Group();
 

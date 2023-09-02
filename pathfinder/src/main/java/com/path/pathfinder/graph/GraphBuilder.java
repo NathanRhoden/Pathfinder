@@ -23,7 +23,7 @@ public class GraphBuilder {
 
     }
 
-    private void generateVertex() {
+    public void generateVertex() {
 
         for (int i = 0; i < row * col; i++) {
             graph.addVertex(i);
