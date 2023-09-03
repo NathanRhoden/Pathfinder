@@ -67,6 +67,13 @@ public class GraphBuilder  {
         return graph;
     }
 
+    /*
+    public Vertex getVertexById(int id){
+        return
+    }
+
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
