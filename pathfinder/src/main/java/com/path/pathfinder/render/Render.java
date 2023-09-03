@@ -1,15 +1,13 @@
-package com.path.pathfinder;
+package com.path.pathfinder.render;
 
+import com.path.pathfinder.util.DimensionData;
 import com.path.pathfinder.graph.GraphBuilder;
 import com.path.pathfinder.graph.Vertex;
-import javafx.animation.Animation;
 import javafx.animation.FillTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.util.*;
 
@@ -89,45 +87,56 @@ public class Render {
 
         st.play();
      */
-    public void animate(int root) {
-        var order = depthFirstTraversal(root);
+
+    public void animate(Set<Vertex> vertexOrderSet) {
         SequentialTransition st = new SequentialTransition();
 
-        order.forEach(e -> {
+        vertexOrderSet.forEach(v -> {
             FillTransition ft = new FillTransition();
-            ft.setShape(vertexList[e.getId()]);
-            ft.setToValue(Color.ORANGERED);
+            ft.setShape(vertexList[v.getId()]);
+            ft.setToValue(Color.DARKORANGE);
             st.getChildren().add(ft);
         });
 
         st.play();
-
     }
 
+    public void animateSearch(Set<Vertex> vertexOrderSet, int end) {
+        SequentialTransition st = new SequentialTransition();
+        st.setRate(10);
 
-    public Set<Vertex> depthFirstTraversal(int root) {
-        Set<Vertex> visited = new LinkedHashSet<>();
-        Stack<Vertex> stack = new Stack<>();
+        final int x = vertexOrderSet.size();
+        final int[] k = {0};
 
+        vertexOrderSet.forEach(v -> {
+            if (v.getId() == end) {
+                FillTransition ft = new FillTransition();
+                ft.setShape(vertexList[v.getId()]);
+                ft.setToValue(Color.INDIANRED);
+                st.getChildren().add(ft);
 
-        stack.add(builder.getGraph().getVertex(root));
-
-        while (!stack.isEmpty()) {
-
-            Vertex currentVertex = stack.pop();
-
-            if (!visited.contains(currentVertex)) {
-                visited.add(currentVertex);
-
-
-                for (Vertex v : builder.getGraph().getNeighbours(currentVertex.getId())) {
-                    stack.push(v);
+            } else {
+                FillTransition ft = new FillTransition();
+                ft.setShape(vertexList[v.getId()]);
+                if (k[0] <= 0.25 * x) {
+                    ft.setToValue(Color.rgb(144, 12, 63));
                 }
+                else if (k[0] > 0.25 * x && k[0] <= 0.50 * x){
+                    ft.setToValue(Color.rgb(199, 0, 57));
+                }
+                else if(k[0] > 0.50 * x && k[0] <= 0.75 * x){
+                    ft.setToValue(Color.rgb(249, 76, 16));
+                }
+                else {
+                    ft.setToValue(Color.rgb(248, 222, 34));
+                }
+                st.getChildren().add(ft);
+                k[0]++;
+
             }
-        }
 
-        return visited;
-
+        });
+        st.play();
     }
 
 

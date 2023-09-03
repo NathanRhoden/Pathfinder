@@ -1,10 +1,10 @@
 package com.path.pathfinder.graph;
 
-import com.path.pathfinder.DimensionData;
+import com.path.pathfinder.util.DimensionData;
 
 import java.util.Objects;
 
-public class GraphBuilder  {
+public class GraphBuilder {
 
     private Graph graph;
     private int row;
@@ -66,13 +66,6 @@ public class GraphBuilder  {
     public Graph getGraph() {
         return graph;
     }
-
-    /*
-    public Vertex getVertexById(int id){
-        return
-    }
-
-     */
 
     @Override
     public boolean equals(Object o) {

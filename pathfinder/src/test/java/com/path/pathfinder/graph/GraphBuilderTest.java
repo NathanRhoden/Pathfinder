@@ -1,12 +1,10 @@
 package com.path.pathfinder.graph;
 
-import com.path.pathfinder.DimensionData;
+import com.path.pathfinder.util.DimensionData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @Disabled

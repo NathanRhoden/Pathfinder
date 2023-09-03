@@ -1,4 +1,4 @@
-package com.path.pathfinder;
+package com.path.pathfinder.util;
 
 public class DimensionData {
 
