@@ -47,7 +47,7 @@ public class Algorithm {
 
             Vertex currentVertex = stack.pop();
 
-            if(currentVertex.equals(new Vertex(target))){
+            if (currentVertex.equals(new Vertex(target))) {
                 visited.add(currentVertex);
                 return visited;
             }
@@ -76,7 +76,7 @@ public class Algorithm {
 
             Vertex currentVertex = queue.poll();
 
-            if(currentVertex.equals(new Vertex(target))){
+            if (currentVertex.equals(new Vertex(target))) {
                 visited.add(currentVertex);
                 return visited;
             }

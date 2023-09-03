@@ -27,7 +27,7 @@ public class View extends Application {
         group.getChildren().add(r.drawGrid());
 
         Algorithm algorithm = new Algorithm(g);
-        r.animateSearch(algorithm.breathFirstSearch(200, 0) , 0);
+        r.animateSearch(algorithm.breathFirstSearch(200, 0), 0);
 
         Scene scene = new Scene(group, 800, 800);
         stage.setTitle("PathFinder");
