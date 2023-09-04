@@ -17,6 +17,7 @@ public class Render {
     Rectangle[] vertexList;
     DimensionData dimensionData;
 
+
     public Render(GraphBuilder builder, DimensionData dimensionData) {
 
         this.builder = builder;
@@ -69,7 +70,7 @@ public class Render {
 
     public void animate(Set<Vertex> vertexOrderSet) {
         SequentialTransition st = new SequentialTransition();
-
+        st.setRate(50);
         vertexOrderSet.forEach(v -> {
             FillTransition ft = new FillTransition();
             ft.setShape(vertexList[v.getId()]);
@@ -80,9 +81,37 @@ public class Render {
         st.play();
     }
 
+    public void animate(List<Vertex> vertexOrderSet , int end){
+        SequentialTransition st = new SequentialTransition();
+        st.setRate(50);
+
+        final int x = vertexOrderSet.size();
+        final int[] k = {0};
+
+        vertexOrderSet.forEach(v -> {
+            if (v.getId() == end) {
+                FillTransition ft = new FillTransition();
+                ft.setShape(vertexList[v.getId()]);
+                ft.setToValue(Color.PINK);
+                st.getChildren().add(ft);
+
+            }
+            else{
+                FillTransition ft = new FillTransition();
+                ft.setShape(vertexList[v.getId()]);
+                ft.setToValue(Color.DARKORANGE);
+                st.getChildren().add(ft);
+                k[0]++;
+            }
+
+        });
+
+        st.play();
+    }
+
     public void animateSearch(Set<Vertex> vertexOrderSet, int end) {
         SequentialTransition st = new SequentialTransition();
-        st.setRate(10);
+        st.setRate(500);
 
         final int x = vertexOrderSet.size();
         final int[] k = {0};
@@ -114,6 +143,5 @@ public class Render {
         });
         st.play();
     }
-
 
 }

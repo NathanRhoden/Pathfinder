@@ -67,8 +67,10 @@ public class Algorithm {
     }
 
     public Set<Vertex> breathFirstSearch(int root, int target) {
+
         Set<Vertex> visited = new LinkedHashSet<>();
         Queue<Vertex> queue = new LinkedList<>();
+
 
         queue.add(graph.getVertex(root));
 
@@ -92,6 +94,55 @@ public class Algorithm {
         }
 
         return visited;
+
+    }
+
+    //TODO WRITE A TEST FOR THE PARENT CONNECTIONS
+    public List<Vertex> findShortestPath(int root , int target){
+        List<Vertex> visited = new ArrayList<>();
+        Queue<Vertex> queue = new LinkedList<>();
+        int[] parent = new int[graph.getSize()];
+
+
+        queue.add(graph.getVertex(root));
+        parent[0] = -6;
+
+        while (!queue.isEmpty()) {
+
+            Vertex currentVertex = queue.poll();
+
+            if (currentVertex.equals(new Vertex(target))) {
+                return reconstructPath(parent , target);
+            }
+
+            if (!visited.contains(currentVertex)) {
+                visited.add(currentVertex);
+
+
+                for (Vertex v : graph.getNeighbours(currentVertex.getId())) {
+                    queue.add(v);
+                    if (!visited.contains(v)){
+                        parent[v.getId()] = currentVertex.getId();
+                    }
+
+                }
+            }
+
+        }
+
+        return visited;
+    }
+
+    private List<Vertex> reconstructPath(int[] parent , int target){
+        List<Vertex> path = new ArrayList<>();
+
+        while(target != -6){
+            path.add(graph.getVertex(target));
+            target = parent[target];
+        }
+
+        Collections.reverse(path);
+        return path;
 
     }
 }

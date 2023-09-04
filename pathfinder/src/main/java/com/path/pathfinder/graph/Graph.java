@@ -53,6 +53,10 @@ public class Graph {
         return new ArrayList<>();
     }
 
+    public int getSize(){
+        return adjacencyMap.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
