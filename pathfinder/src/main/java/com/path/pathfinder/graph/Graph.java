@@ -24,6 +24,17 @@ public class Graph {
 
     }
 
+    public void deleteVertex(int id) {
+        if (adjacencyMap.containsKey(new Vertex(id))) {
+            adjacencyMap.remove(new Vertex(id));
+        }
+        adjacencyMap.forEach((k, v) -> {
+            if (v.contains(new Vertex(id))){
+                v.remove(new Vertex(id));
+            }
+        });
+    }
+
     public void deleteEdge(int id1, int id2) {
         adjacencyMap.get(new Vertex(id1)).remove(new Vertex(id2));
         adjacencyMap.get(new Vertex(id2)).remove(new Vertex(id1));
@@ -47,13 +58,13 @@ public class Graph {
     }
 
     public List<Vertex> getNeighbours(int id) {
-        if(adjacencyMap.containsKey(new Vertex(id))){
+        if (adjacencyMap.containsKey(new Vertex(id))) {
             return adjacencyMap.get(new Vertex(id));
         }
         return new ArrayList<>();
     }
 
-    public int getSize(){
+    public int getSize() {
         return adjacencyMap.size();
     }
 

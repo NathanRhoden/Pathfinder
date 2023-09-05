@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Algorithm {
 
+
     private Graph graph;
 
     public Algorithm(Graph graph) {
@@ -98,7 +99,7 @@ public class Algorithm {
     }
 
     //TODO WRITE A TEST FOR THE PARENT CONNECTIONS
-    public List<Vertex> findShortestPath(int root , int target){
+    public List<Vertex> findShortestPath(int root, int target) {
         List<Vertex> visited = new ArrayList<>();
         Queue<Vertex> queue = new LinkedList<>();
         int[] parent = new int[graph.getSize()];
@@ -112,7 +113,7 @@ public class Algorithm {
             Vertex currentVertex = queue.poll();
 
             if (currentVertex.equals(new Vertex(target))) {
-                return reconstructPath(parent , target);
+                return reconstructPath(parent, target);
             }
 
             if (!visited.contains(currentVertex)) {
@@ -121,7 +122,7 @@ public class Algorithm {
 
                 for (Vertex v : graph.getNeighbours(currentVertex.getId())) {
                     queue.add(v);
-                    if (!visited.contains(v)){
+                    if (!visited.contains(v)) {
                         parent[v.getId()] = currentVertex.getId();
                     }
 
@@ -133,10 +134,10 @@ public class Algorithm {
         return visited;
     }
 
-    private List<Vertex> reconstructPath(int[] parent , int target){
+    private List<Vertex> reconstructPath(int[] parent, int target) {
         List<Vertex> path = new ArrayList<>();
 
-        while(target != -6){
+        while (target != -6) {
             path.add(graph.getVertex(target));
             target = parent[target];
         }

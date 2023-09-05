@@ -1,10 +1,12 @@
 package com.path.pathfinder.graph;
 
+import com.path.pathfinder.render.Render;
 import com.path.pathfinder.util.DimensionData;
+import com.path.pathfinder.util.VertexList;
 
 import java.util.Objects;
 
-public class GraphBuilder {
+public class GraphBuilder implements Observer {
 
     private Graph graph;
     private int row;
@@ -30,6 +32,21 @@ public class GraphBuilder {
         for (int i = 0; i < row * col; i++) {
             graph.addVertex(i);
         }
+    }
+
+    public void removeVertexConnection(int id){
+        System.out.println(id + " Removed");
+        var connections = graph.getNeighbours(id);
+
+        for (int i = 0; i < connections.size(); i++) {
+            graph.deleteEdge(id , connections.get(i).getId());
+        }
+
+    }
+
+    @Override
+    public void update(Object o) {
+        removeVertexConnection((int) o);
     }
 
     public void generateHorizontalEdges() {
