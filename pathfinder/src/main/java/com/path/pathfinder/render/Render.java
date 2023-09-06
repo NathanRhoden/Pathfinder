@@ -1,26 +1,31 @@
 package com.path.pathfinder.render;
 
-import com.path.pathfinder.util.DimensionData;
-import com.path.pathfinder.graph.GraphBuilder;
+import com.path.pathfinder.graph.Observer;
 import com.path.pathfinder.graph.Vertex;
+import com.path.pathfinder.util.DimensionData;
+import com.path.pathfinder.util.UserInputData;
 import javafx.animation.FillTransition;
 import javafx.animation.SequentialTransition;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static com.path.pathfinder.util.UserInputData.*;
 
 public class Render {
 
-    GraphBuilder builder;
     Rectangle[] vertexList;
     DimensionData dimensionData;
+    List<Observer> observers = new ArrayList<>();
+    int removed;
 
 
-    public Render(GraphBuilder builder, DimensionData dimensionData) {
-
-        this.builder = builder;
+    public Render(DimensionData dimensionData) {
         vertexList = new Rectangle[dimensionData.getCol() * dimensionData.getRow()];
         this.dimensionData = dimensionData;
     }
@@ -28,6 +33,14 @@ public class Render {
 
     public Pane drawGrid() {
         Pane pane = new Pane();
+        pane.setOnDragDetected(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                event.consume();
+                pane.startFullDrag();
+            }
+        });
+
+
         int w = dimensionData.getRectangleWidth();
         int h = dimensionData.getRectangleHeight();
 
@@ -40,6 +53,61 @@ public class Render {
 
             for (int j = 0; j < dimensionData.getRow(); j++) {
                 Rectangle r = new Rectangle(x, y, w, h);
+
+                r.setOnMouseClicked(mouseEvent -> {
+                    if (mouseEvent.getButton() == MouseButton.SECONDARY) {
+
+                        for (int k = 0; k < vertexList.length; k++) {
+
+                            if (vertexList[k] == r) {
+                                if (LASTCLICKEDNODES[1] == -1) {
+                                    r.setStroke(Color.BLACK);
+                                    r.setFill(Color.RED);
+
+                                    TARGET = k;
+                                    LASTCLICKEDNODES[1] = k;
+                                    System.out.println(LASTCLICKEDNODES[1]);
+                                }
+
+                            }
+                        }
+
+
+                        mouseEvent.consume();
+                    }
+                    if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+
+
+                        for (int k = 0; k < vertexList.length; k++) {
+
+                            if (vertexList[k] == r) {
+                                if (LASTCLICKEDNODES[0] == -1) {
+                                    r.setStroke(Color.BLACK);
+                                    r.setFill(Color.GREEN);
+
+                                    ROOT = k;
+                                    LASTCLICKEDNODES[0] = k;
+                                    System.out.println(LASTCLICKEDNODES[0]);
+                                }
+
+                            }
+                        }
+                        mouseEvent.consume();
+                    }
+
+                });
+
+
+                r.setOnMouseDragEntered(event -> {
+
+                    r.setFill(Color.BLACK);
+
+                    for (int k = 0; k < vertexList.length; k++) {
+                        if (vertexList[k] == r) {
+                            updateRemovedVertex(k);
+                        }
+                    }
+                });
                 r.setStroke(Color.BLACK);
                 r.setFill(Color.WHITE);
                 pane.getChildren().add(r);
@@ -59,18 +127,13 @@ public class Render {
         return vertexList;
     }
 
-    public GraphBuilder getBuilder() {
-        return builder;
-    }
-
     public void fillRect(int vertexIndex, Color color) {
         vertexList[vertexIndex].setFill(color);
     }
 
-
     public void animate(Set<Vertex> vertexOrderSet) {
         SequentialTransition st = new SequentialTransition();
-        st.setRate(50);
+        st.setRate(100);
         vertexOrderSet.forEach(v -> {
             FillTransition ft = new FillTransition();
             ft.setShape(vertexList[v.getId()]);
@@ -81,7 +144,7 @@ public class Render {
         st.play();
     }
 
-    public void animate(List<Vertex> vertexOrderSet , int end){
+    public void animate(List<Vertex> vertexOrderSet, int end) {
         SequentialTransition st = new SequentialTransition();
         st.setRate(50);
 
@@ -92,14 +155,13 @@ public class Render {
             if (v.getId() == end) {
                 FillTransition ft = new FillTransition();
                 ft.setShape(vertexList[v.getId()]);
-                ft.setToValue(Color.PINK);
+                ft.setToValue(Color.RED);
                 st.getChildren().add(ft);
 
-            }
-            else{
+            } else {
                 FillTransition ft = new FillTransition();
                 ft.setShape(vertexList[v.getId()]);
-                ft.setToValue(Color.DARKORANGE);
+                ft.setToValue(Color.RED);
                 st.getChildren().add(ft);
                 k[0]++;
             }
@@ -107,6 +169,17 @@ public class Render {
         });
 
         st.play();
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void updateRemovedVertex(int id) {
+        removed = id;
+        for (Observer o : this.observers) {
+            o.update(removed);
+        }
     }
 
     public void animateSearch(Set<Vertex> vertexOrderSet, int end) {
