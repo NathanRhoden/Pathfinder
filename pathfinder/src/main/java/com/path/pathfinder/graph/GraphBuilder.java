@@ -73,12 +73,10 @@ public class GraphBuilder implements Observer {
         }
     }
 
-    public int getRow() {
-        return row;
-    }
+    public void resetGraph(){
+        graph.getAdjacencyMap().clear();
+        buildGraph();
 
-    public int getCol() {
-        return col;
     }
 
     public Graph getGraph() {

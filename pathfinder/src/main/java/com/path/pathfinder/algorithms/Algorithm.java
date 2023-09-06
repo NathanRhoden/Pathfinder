@@ -106,7 +106,7 @@ public class Algorithm {
 
 
         queue.add(graph.getVertex(root));
-        parent[0] = -6;
+        parent[root] = -6;
 
         while (!queue.isEmpty()) {
 
@@ -130,7 +130,6 @@ public class Algorithm {
             }
 
         }
-
         return visited;
     }
 
@@ -146,4 +145,5 @@ public class Algorithm {
         return path;
 
     }
+
 }
