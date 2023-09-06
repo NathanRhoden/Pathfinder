@@ -4,6 +4,7 @@ import com.path.pathfinder.render.Render;
 import com.path.pathfinder.util.DimensionData;
 import com.path.pathfinder.util.VertexList;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 public class GraphBuilder implements Observer {
@@ -38,9 +39,9 @@ public class GraphBuilder implements Observer {
         System.out.println(id + " Removed");
         var connections = graph.getNeighbours(id);
 
-        for (int i = 0; i < connections.size(); i++) {
-            graph.deleteEdge(id , connections.get(i).getId());
-        }
+        graph.removeNeighbours(id);
+        System.out.println(graph.getNeighbours(id).toString());
+
 
     }
 

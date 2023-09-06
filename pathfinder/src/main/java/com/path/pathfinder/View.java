@@ -40,19 +40,22 @@ public class View extends Application {
                     @Override
                     public void handle(ActionEvent actionEvent) {
                         Graph g = graphBuilder.getGraph();
+                        System.out.println(g.getSize());
                         g.showConnections();
                         Algorithm algorithm = new Algorithm(g);
-                        r.animateSearch(algorithm.breathFirstSearch(0,2499) ,2499);
-                        //r.animate(algorithm.findShortestPath(0 , 2499) ,2499);
+                        //r.animateSearch(algorithm.breathFirstSearch(0 , 2499) , 2499);
+                        r.animate(algorithm.findShortestPath(0,2499) , 2499);
+
                     }
                 }
         );
 
-        group.getChildren().add(button);
+
+     group.getChildren().add(button);
 
 
 
-        Scene scene = new Scene(group, 1000, 1000);
+        Scene scene = new Scene(group, 1000, 800);
         stage.setTitle("PathFinder");
         stage.setScene(scene);
         stage.show();

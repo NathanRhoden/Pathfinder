@@ -4,6 +4,7 @@ import com.path.pathfinder.graph.Observer;
 import com.path.pathfinder.graph.Vertex;
 import com.path.pathfinder.util.DimensionData;
 import com.path.pathfinder.util.VertexList;
+import javafx.animation.Animation;
 import javafx.animation.FillTransition;
 import javafx.animation.SequentialTransition;
 import javafx.event.EventHandler;
@@ -67,7 +68,6 @@ public class Render {
                         }
                     }
                 });
-
                 r.setStroke(Color.BLACK);
                 r.setFill(Color.WHITE);
                 pane.getChildren().add(r);
@@ -115,13 +115,13 @@ public class Render {
             if (v.getId() == end) {
                 FillTransition ft = new FillTransition();
                 ft.setShape(vertexList[v.getId()]);
-                ft.setToValue(Color.PINK);
+                ft.setToValue(Color.GREEN);
                 st.getChildren().add(ft);
 
             } else {
                 FillTransition ft = new FillTransition();
                 ft.setShape(vertexList[v.getId()]);
-                ft.setToValue(Color.DARKORANGE);
+                ft.setToValue(Color.RED);
                 st.getChildren().add(ft);
                 k[0]++;
             }

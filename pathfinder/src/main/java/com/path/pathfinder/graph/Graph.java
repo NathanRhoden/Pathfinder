@@ -57,6 +57,20 @@ public class Graph {
 
     }
 
+    public void removeNeighbours(int id){
+        if (adjacencyMap.containsKey(new Vertex(id))) {
+            adjacencyMap.get(new Vertex(id)).remove(new Vertex(id));
+            adjacencyMap.put(new Vertex(id) ,new ArrayList<>());
+        }
+
+        adjacencyMap.forEach((k , v)-> {
+            if(v.contains(new Vertex(id))){
+                v.remove(new Vertex(id));
+            }
+        });
+
+    }
+
     public List<Vertex> getNeighbours(int id) {
         if (adjacencyMap.containsKey(new Vertex(id))) {
             return adjacencyMap.get(new Vertex(id));
