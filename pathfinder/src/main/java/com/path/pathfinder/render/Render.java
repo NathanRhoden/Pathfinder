@@ -3,7 +3,6 @@ package com.path.pathfinder.render;
 import com.path.pathfinder.graph.Observer;
 import com.path.pathfinder.graph.Vertex;
 import com.path.pathfinder.util.DimensionData;
-import com.path.pathfinder.util.UserInputData;
 import javafx.animation.FillTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.input.MouseButton;
@@ -100,11 +99,13 @@ public class Render {
 
                 r.setOnMouseDragEntered(event -> {
 
-                    r.setFill(Color.BLACK);
-
                     for (int k = 0; k < vertexList.length; k++) {
                         if (vertexList[k] == r) {
-                            updateRemovedVertex(k);
+                            if (LASTCLICKEDNODES[0] != k && LASTCLICKEDNODES[1] != k) {
+                                r.setFill(Color.BLACK);
+                                updateRemovedVertex(k);
+                            }
+
                         }
                     }
                 });
@@ -148,7 +149,6 @@ public class Render {
         SequentialTransition st = new SequentialTransition();
         st.setRate(50);
 
-        final int x = vertexOrderSet.size();
         final int[] k = {0};
 
         vertexOrderSet.forEach(v -> {
