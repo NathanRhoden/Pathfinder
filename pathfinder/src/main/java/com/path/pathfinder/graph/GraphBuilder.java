@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class GraphBuilder implements Observer {
 
-    private Graph graph;
-    private int row;
-    private int col;
+    private final Graph graph;
+    private final int row;
+    private final int col;
 
     public GraphBuilder(DimensionData dimensionData) {
 
@@ -35,7 +35,7 @@ public class GraphBuilder implements Observer {
         }
     }
 
-    public void removeVertexConnection(int id){
+    public void removeVertexConnection(int id) {
         System.out.println(id + " Removed");
         var connections = graph.getNeighbours(id);
 
@@ -73,7 +73,23 @@ public class GraphBuilder implements Observer {
         }
     }
 
-    public void resetGraph(){
+    public void generateDiagonalEdges() {
+        int newRow = 0;
+
+        for (int i = 0; i < (row * col); i++) {
+            if (newRow == 0) {
+                graph.addEdge(i, (i + col + 1));
+            } else if (newRow == (col - 1)) {
+                graph.addEdge(i, (i + col - 1));
+            } else {
+                graph.addEdge(i, (i + col + 1));
+                graph.addEdge(i, (i + col - 1));
+            }
+            newRow++;
+        }
+    }
+
+    public void resetGraph() {
         graph.getAdjacencyMap().clear();
         buildGraph();
 

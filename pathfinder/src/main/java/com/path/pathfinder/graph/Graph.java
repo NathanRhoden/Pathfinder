@@ -25,13 +25,9 @@ public class Graph {
     }
 
     public void deleteVertex(int id) {
-        if (adjacencyMap.containsKey(new Vertex(id))) {
-            adjacencyMap.remove(new Vertex(id));
-        }
+        adjacencyMap.remove(new Vertex(id));
         adjacencyMap.forEach((k, v) -> {
-            if (v.contains(new Vertex(id))){
-                v.remove(new Vertex(id));
-            }
+            v.remove(new Vertex(id));
         });
     }
 
@@ -64,9 +60,7 @@ public class Graph {
         }
 
         adjacencyMap.forEach((k , v)-> {
-            if(v.contains(new Vertex(id))){
-                v.remove(new Vertex(id));
-            }
+            v.remove(new Vertex(id));
         });
 
     }

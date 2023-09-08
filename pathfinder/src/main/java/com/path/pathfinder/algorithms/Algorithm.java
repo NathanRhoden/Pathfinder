@@ -8,7 +8,7 @@ import java.util.*;
 public class Algorithm {
 
 
-    private Graph graph;
+    private final Graph graph;
 
     public Algorithm(Graph graph) {
         this.graph = graph;

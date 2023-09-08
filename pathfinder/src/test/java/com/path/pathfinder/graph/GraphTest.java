@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GraphTest {
 
     private final Graph testGraph = new Graph();
-    private Graph dummygraph = new Graph();
+    private final Graph dummygraph = new Graph();
 
     @BeforeEach
     void setUp() {

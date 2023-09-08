@@ -2,30 +2,16 @@ package com.path.pathfinder.util;
 
 public class DimensionData {
 
-    private int height;
-    private int width;
-    private int row;
-    private int col;
-    private int rectangleWidth;
-    private int rectangleHeight;
-    private int vertexCount;
+    private final int row;
+    private final int col;
+    private final int rectangleWidth;
+    private final int rectangleHeight;
 
     public DimensionData(int height, int width, int row, int col) {
-        this.height = height;
-        this.width = width;
         this.row = row;
         this.col = col;
         rectangleHeight = height / row;
         rectangleWidth = width / col;
-        vertexCount = row * col;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
     }
 
     public int getRow() {
@@ -42,10 +28,6 @@ public class DimensionData {
 
     public int getRectangleHeight() {
         return rectangleHeight;
-    }
-
-    public int getVertexCount() {
-        return vertexCount;
     }
 
 
