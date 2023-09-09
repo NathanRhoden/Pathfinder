@@ -74,7 +74,7 @@ public class Render {
 
                         mouseEvent.consume();
                     }
-                    if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                    if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2) {
 
 
                         for (int k = 0; k < vertexList.length; k++) {
